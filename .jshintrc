@@ -1,0 +1,23 @@
+{
+  "camelcase": true,
+  "curly": true,
+  "eqeqeq": true,
+  "forin": true,
+  "freeze": true,
+  "immed": true,
+  "latedef": "nofunc",
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonbsp": true,
+  "nonew": true,
+  "quotmark": "double",
+  "undef": true,
+  "unused": "strict",
+  "funcscope": true,
+  "globalstrict": true,
+  "maxerr": 100,
+  "sub": true,
+
+  "node": true
+}
