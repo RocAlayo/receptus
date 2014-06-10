@@ -13,7 +13,7 @@
   "nonew": true,
   "quotmark": "double",
   "undef": true,
-  "unused": "strict",
+  "unused": "vars",
   "funcscope": true,
   "globalstrict": true,
   "maxerr": 100,

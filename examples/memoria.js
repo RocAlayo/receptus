@@ -1,14 +1,14 @@
 /**
  * Created by roc on 22/05/14.
  */
-'use strict';
+"use strict";
 
 
-var receptus = require('../lib');
+var receptus = require("../lib");
 
 // this loads are async and their contructors will be loaded when need (lazyload).
-receptus.loadDependencies(__dirname + './xmeans');     // File
-receptus.loadDependencies(__dirname + '/preproces.js');  // Folder
+receptus.loadDependencies(__dirname + "./xmeans");     // File
+receptus.loadDependencies(__dirname + "/preproces.js");  // Folder
 
 receptus.step(function ($data, DataFile) {
   var dataFile = new DataFile({
