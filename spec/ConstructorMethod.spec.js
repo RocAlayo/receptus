@@ -7,28 +7,22 @@
 /*global it */
 /*global expect */
 
+var Receptus = require("../lib/Receptus");
 
-var Receptus = require("../../lib/Receptus");
-
-
-describe("Receptus.constructor errors", function () {
-  it("First argument not an object", function () {
+describe("Receptus.constructor", function () {
+  it("Errors - First argument not an object", function () {
     expect(function () {
       var receptus = new Receptus(14);
     }).toThrow("First argument needs to be an Object");
   });
 
-  it("Path attribute not array", function () {
+  it("Errors - Path attribute not array", function () {
     expect(function () {
       var receptus = new Receptus({path: 14});
     }).toThrow("Attribute 'path' of first argument needs to be an Array");
   });
-});
 
-
-describe("Receptus.constructor use", function () {
-
-  it("Saved string path", function () {
+  it("Use - Saved string path", function () {
     var kdd = new Receptus({
       path: __dirname + "/bar"
     });
@@ -36,7 +30,7 @@ describe("Receptus.constructor use", function () {
     expect(kdd.dependenciesPaths.length).toBe(4);
   });
 
-  it("Saved array path", function () {
+  it("Use - Saved array path", function () {
     var kdd = new Receptus({
       path: [__dirname + "/bar"]
     });

@@ -6,84 +6,80 @@
 /*global describe */
 /*global it */
 /*global expect */
+/*global beforeEach */
+/*global afterEach */
 
 
-var Receptus = require("../../lib/Receptus");
+var Receptus = require("../lib/Receptus"),
+    kdd;
 
 
-describe("Receptus.step errors", function () {
-  it("0 arguments", function () {
-    var kdd = new Receptus({});
+describe("Receptus.step", function () {
+  beforeEach(function() {
+    kdd = new Receptus({});
+  });
 
+  afterEach(function () {
+    kdd = null;
+  });
+
+  it("Errors - 0 arguments", function () {
     expect(function () {
       kdd.step();
     }).toThrow("Wrong number or type of arguments.");
   });
 
-  it("1 arguments: wrong type", function () {
-    var kdd = new Receptus({});
-
+  it("Errors - 1 arguments: wrong type", function () {
     expect(function () {
       kdd.step(14);
     }).toThrow("Wrong number or type of arguments.");
   });
 
-  it("1 arguments: dont exists step", function () {
-    var kdd = new Receptus({});
-
+  it("Errors - 1 arguments: dont exists step", function () {
     expect(function () {
       kdd.step("step1");
     }).toThrow("There is at least one step that doesn't exists.");
   });
 
-  it("2 arguments one step: first argument wrong type", function () {
-    var kdd = new Receptus({}),
-      step = function step() {};
+  it("Errors - 2 arguments one step: first argument wrong type", function () {
+    var step = function step() {};
 
     expect(function () {
       kdd.step(14, step);
     }).toThrow("Wrong number or type of arguments.");
   });
 
-  it("2 arguments one step: second argument wrong type", function () {
-    var kdd = new Receptus({});
-
+  it("Errors - 2 arguments one step: second argument wrong type", function () {
     expect(function () {
       kdd.step("step1", 14);
     }).toThrow("Wrong number or type of arguments.");
   });
 
-  it("2 arguments: first or second argument wrong type", function () {
-    var kdd = new Receptus({});
-
+  it("Errors - 2 arguments: first or second argument wrong type", function () {
     expect(function () {
       kdd.step(false, function () {});
     }).toThrow("Wrong number or type of arguments.");
   });
 
-  it("dependencies starting by $ are reserved", function () {
-    var kdd = new Receptus({});
+  it("Errors - Dependency mapping - $data isn't an object", function () {
+    kdd.step(function ($help) {
 
-    expect(function () {
-      kdd.step(function ($help) {
-
+    }).error(function ($error) {
+        expect($error.message).toEqual("Dependency '$help' can't be mapped from '$data' if '$data' isn't a plain object");
       });
-    }).toThrow("Symbol $ in arguments only can be used with $data");
   });
 
-  it("Only argument reserved is $data", function () {
-    var kdd = new Receptus({});
+  it("Errors - Dependency mapping - dependency not found in $data", function () {
+    kdd.step(function () {
+      return {};
+    }).step(function ($help) {
 
-    expect(function () {
-      kdd.step(function ($error) {
-
+    }).error(function ($error) {
+        expect($error.message).toEqual("Dependency '$help' can't be mapped from '$data', there is not a property in '$data' with that name");
       });
-    }).toThrow("Symbol $ in arguments only can be used with $data");
   });
 
-  it("Dependency not found", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Dependency not found", function (done) {
     kdd.step(function (bar) {
 
     }).error(function ($error) {
@@ -92,9 +88,7 @@ describe("Receptus.step errors", function () {
       });
   });
 
-  it("Similar dependencies load but not the needed one", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Similar dependencies load but not the needed one", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (fo) {
@@ -105,9 +99,7 @@ describe("Receptus.step errors", function () {
       });
   });
 
-  it("Files with similar name removed because of DI", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Files with similar name removed because of DI", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (fo) {
@@ -118,9 +110,7 @@ describe("Receptus.step errors", function () {
       });
   });
 
-  it("Not load a dependency with similar name", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Not load a dependency with similar name", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (te) {
@@ -131,9 +121,7 @@ describe("Receptus.step errors", function () {
       });
   });
 
-  it("Error in multi steps in parallel", function () {
-    var kdd = new Receptus({});
-
+  it("Errors - Error in multi steps in parallel", function () {
     kdd.saveStep("step2", function ($data) { return 10 / $data; });
 
     expect(function () {
@@ -145,9 +133,7 @@ describe("Receptus.step errors", function () {
     }).toThrow("There is at least one step that doesn't exists.");
   });
 
-  it("Load anonymous function as a modul", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Load anonymous function as a modul", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (anonymous) {
@@ -158,9 +144,7 @@ describe("Receptus.step errors", function () {
       });
   });
 
-  it("Load object without object.name property as a modul", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Load object without object.name property as a modul", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (object) {
@@ -170,12 +154,8 @@ describe("Receptus.step errors", function () {
         done();
       });
   });
-});
 
-describe("Receptus.step one step use", function () {
-  it("Resolve without dependencies", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolve without dependencies", function (done) {
     kdd.step(function () {
       return "foo";
     });
@@ -186,9 +166,7 @@ describe("Receptus.step one step use", function () {
     });
   });
 
-  it("Resolve with dependencies", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolve with dependencies", function (done) {
     kdd.addDependency("foo", function foo() { return 14; });
     kdd.addDependency("bar", function bar() { return 2; });
 
@@ -202,9 +180,7 @@ describe("Receptus.step one step use", function () {
     });
   });
 
-  it("Resolve step with $data injected", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolve step with $data injected", function (done) {
     kdd.step(function () {
       return 28;
     }).step(function ($data) {
@@ -213,9 +189,7 @@ describe("Receptus.step one step use", function () {
     });
   });
 
-  it("Step return a promise", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Step return a promise", function (done) {
     kdd.step(function () {
       return 14;
     }).step(function () {
@@ -226,9 +200,7 @@ describe("Receptus.step one step use", function () {
       });
   });
 
-  it("Resolved and saved dependency: folder", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolved and saved dependency: folder", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (foo) {
@@ -237,9 +209,7 @@ describe("Receptus.step one step use", function () {
     });
   });
 
-  it("Resolved and saved dependency: file", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolved and saved dependency: file", function (done) {
     kdd.loadDependencies(__dirname + "/bar/foo.js");
 
     kdd.step(function (foo) {
@@ -248,9 +218,7 @@ describe("Receptus.step one step use", function () {
     });
   });
 
-  it("Resolved and saved dependency: recursive search", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolved and saved dependency: recursive search", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (Test) {
@@ -260,9 +228,7 @@ describe("Receptus.step one step use", function () {
     });
   });
 
-  it("Auto create object with zero arguments constructor functions", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Auto create object with zero arguments constructor functions", function (done) {
     kdd.loadDependencies(__dirname + "/bar");
 
     kdd.step(function (test) {
@@ -272,12 +238,8 @@ describe("Receptus.step one step use", function () {
       done();
     });
   });
-});
 
-describe("Receptus.step multi step", function () {
-  it("In sequence", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Multi step in sequence", function (done) {
     kdd.addDependency("dep", function () {
       return 2;
     });
@@ -292,9 +254,7 @@ describe("Receptus.step multi step", function () {
     });
   });
 
-  it("In parallel", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - multi step in parallel", function (done) {
     kdd.addDependency("dep", function () {
       return 2;
     });
@@ -315,9 +275,7 @@ describe("Receptus.step multi step", function () {
       });
   });
 
-  it("Multi steps in parallel: Throw in one step", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Multi steps in parallel: Throw in one step", function (done) {
     kdd.saveStep("step1", function ($data) { return 10 / $data; });
     kdd.saveStep("step2", function () { throw new Error("error!"); });
 
@@ -329,9 +287,7 @@ describe("Receptus.step multi step", function () {
       });
   });
 
-  it("Multi steps in parallel: object recursive population", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Multi steps in parallel: object recursive population", function (done) {
     kdd.saveStep("step1", function ($data) {
       $data.b.step1 = "bar";
       return $data;
@@ -373,9 +329,7 @@ describe("Receptus.step multi step", function () {
       });
   });
 
-  it("Multi steps in parallel: array recursive population", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Multi steps in parallel: array recursive population", function (done) {
     kdd.saveStep("step1", function ($data) {
       $data[0].class = "bar";
       return $data;

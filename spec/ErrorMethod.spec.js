@@ -6,22 +6,29 @@
 /*global describe */
 /*global it */
 /*global expect */
+/*global beforeEach */
+/*global afterEach */
 
 
-var Receptus = require("../../lib/Receptus");
+var Receptus = require("../lib/Receptus"),
+    kdd;
 
 describe("Receptus.error errors", function () {
-  it("No function argument", function () {
-    var kdd = new Receptus({});
+  beforeEach(function() {
+    kdd = new Receptus({});
+  });
 
+  afterEach(function () {
+    kdd = null;
+  });
+
+  it("Errors - No function argument", function () {
     expect(function () {
       kdd.error(14);
     }).toThrow("Callback has to be a function");
   });
 
-  it("Unexistent dependency", function (done) {
-    var kdd = new Receptus({});
-
+  it("Errors - Unexistent dependency", function (done) {
     kdd.step(function () {
       throw 2;
     }).error(function (foobar) {
@@ -32,21 +39,14 @@ describe("Receptus.error errors", function () {
     });
   });
 
-  it("Only argument reserved is $error", function () {
-    var kdd = new Receptus({});
-
+  it("Errors - Only argument reserved is $error", function () {
     expect(function () {
       kdd.error(function ($data) {
-
       });
     }).toThrow("Symbol $ in arguments only can be used with $error");
   });
-});
 
-describe("Receptus.error use", function () {
-  it("$error gets filled correctly", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - $error gets filled correctly", function (done) {
     kdd.step(function () {
       throw new Error("Error!");
     }).error(function ($error) {
@@ -55,9 +55,7 @@ describe("Receptus.error use", function () {
     });
   });
 
-  it("Catch error from previous step", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Catch error from previous step", function (done) {
     kdd.step(function () {
       throw new Error("error!");
     }).error(function () {
@@ -66,9 +64,7 @@ describe("Receptus.error use", function () {
     });
   });
 
-  it("Resolve dependencies correctly", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Resolve dependencies correctly", function (done) {
     kdd.addDependency("foo", function () { return 19; });
 
     kdd.step(function () {
@@ -79,9 +75,7 @@ describe("Receptus.error use", function () {
     });
   });
 
-  it("Catch error from previous error", function (done) {
-    var kdd = new Receptus({});
-
+  it("Use - Catch error from previous error", function (done) {
     kdd.step(function () {
       throw 2;
     }).error(function () {

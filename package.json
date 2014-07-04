@@ -2,29 +2,28 @@
   "name": "receptus",
   "version": "0.0.1",
   "description": "API for making KDD ",
-  "main": "index.js",
+  "main": "lib/index.js",
+  "private": true,
   "directories": {
     "doc": "docs",
     "example": "examples",
-    "test": "test"
+    "test": "spec"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "gulp jasmine"
   },
-  "author": "",
+  "author": "Roc Alayo Arnabat",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.6.2",
     "gulp-jasmine": "^0.2.0",
-    "gulp-jsdoc": "^0.1.4",
     "gulp-jshint": "^1.6.1",
-    "gulp-markdox": "^0.1.0",
     "gulp-rename": "^1.2.0",
     "jasmine-node": "^1.14.3"
   },
   "dependencies": {
     "bluebird": "^1.2.4",
-    "mathjs": "^0.22.0",
-    "underscore": "^1.6.0"
+    "lodash": "^2.4.1",
+    "mathjs": "^0.22.0"
   }
 }
