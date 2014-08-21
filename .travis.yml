@@ -1,6 +1,13 @@
 language: node_js
 node_js:
-  - '0.10'
-  - '0.11'
+- '0.10'
+- '0.11'
 before_script:
-  - npm install -g gulp jasmine-node
+- npm install -g gulp jasmine-node
+deploy:
+  provider: npm
+  email: roc.alyo@gmail.com
+  api_key:
+    secure: GmnsaNW/u+6axiXe1B55PVdNb2eJd95XfCSMNBRLsyhvM42Gd/M0IsjRON6I9MXlnam0HHE9zm9YNRj7wmWK5pZsWRdCsKz1kdJiMcLlM/t22G5jrqh5RcCL/P4l/Ze537KKQyZHgDa813gfk2a5evseIF8jxi1Bh7SKm45S6kc=
+  on:
+    branch: master
