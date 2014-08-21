@@ -6,10 +6,10 @@
 // Include gulp
 var gulp = require("gulp"),
 // Include Our Plugins
-  jshint = require("gulp-jshint"),
+  jshint = require("gulp-jshint");
   /*markdox = require("gulp-markdox"),
-  rename = require("gulp-rename"),*/
-  jasmine = require("gulp-jasmine");
+  rename = require("gulp-rename"),
+  jasmine = require("gulp-jasmine");*/
 
 // Lint Task
 gulp.task("lint", function () {
@@ -29,10 +29,10 @@ gulp.task("lint", function () {
 //});
 
 // Test it all!
-gulp.task("jasmine", function () {
-  return gulp.src("./spec/**/*.spec.js")
-    .pipe(jasmine({verbose:true, includeStackTrace: true}));
-});
+//gulp.task("jasmine", function () {
+//  return gulp.src("./spec/**/*.spec.js")
+//    .pipe(jasmine({verbose:true, includeStackTrace: true, captureExceptions: true}));
+//});
 
 // Default Task
 gulp.task("default", ["lint", /*"doc",*/ "jasmine"]);
