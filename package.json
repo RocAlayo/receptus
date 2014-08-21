@@ -1,18 +1,20 @@
 {
   "name": "receptus",
   "version": "0.0.1",
-  "description": "API for making KDD ",
+  "description": "Node module that apply DI concept and Promises to shape a KDD process",
   "main": "lib/index.js",
-  "private": true,
-  "directories": {
-    "doc": "docs",
-    "example": "examples",
-    "test": "spec"
+  "homepage": "https://github.com/rocalayo/receptus",
+  "bugs": "https://github.com/rocalayo/receptus/issues",
+  "license": "MIT",
+  "author": {
+    "name": "Roc Alayo Arnabat",
+    "email": "roc.alayo@gmail.com",
+    "url": "rocalayo.com"
   },
-  "scripts": {
-    "test": "gulp jasmine"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rocalayo/receptus"
   },
-  "author": "Roc Alayo Arnabat",
   "license": "MIT",
   "devDependencies": {
     "gulp": "^3.6.2",
