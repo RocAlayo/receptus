@@ -1,4 +1,4 @@
-# Receptus
+# Receptus [![Build Status](https://travis-ci.org/RocAlayo/receptus.svg)](https://travis-ci.org/RocAlayo/receptus)
 
 Node module that apply DI concept and Promises to shape a KDD process. We recommend the use in conjunction with [Receptus Algorithms](http://github.com/RocAlayo/receptus-algorithms) 
 
