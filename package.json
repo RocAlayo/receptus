@@ -20,8 +20,9 @@
     "example": "examples",
     "test": "spec"
   },
-  "scripts": {
-    "test": "gulp jasmine"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rocalayo/receptus"
   },
   "devDependencies": {
     "gulp": "^3.6.2",
