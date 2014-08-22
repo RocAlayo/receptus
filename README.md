@@ -1,4 +1,4 @@
-# Receptus [![Build Status](https://travis-ci.org/RocAlayo/receptus.svg)](https://travis-ci.org/RocAlayo/receptus) [![Dependency Status](https://david-dm.org/rocalayo/receptus.svg)](https://david-dm.org/rocalayo/receptus)
+# Receptus [![NPM version](https://badge.fury.io/js/receptus.svg)](http://badge.fury.io/js/receptus) [![Build Status](https://travis-ci.org/RocAlayo/receptus.svg)](https://travis-ci.org/RocAlayo/receptus) [![Dependency Status](https://david-dm.org/rocalayo/receptus.svg)](https://david-dm.org/rocalayo/receptus)
 
 Node module that apply DI concept and Promises to shape a KDD process. We recommend the use in conjunction with [Receptus Algorithms](http://github.com/RocAlayo/receptus-algorithms) 
 
